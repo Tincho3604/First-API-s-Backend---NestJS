@@ -1,4 +1,4 @@
-import { Controller, Query, Get } from '@nestjs/common';
+import { Controller, Query, Get, Post, Body, HttpCode, HttpStatus } from '@nestjs/common';
 
 @Controller('products')
 export class ProductsController {
@@ -10,7 +10,17 @@ export class ProductsController {
     ) {
         return `products limit=> ${limit} offsert=> ${offset} brand=> ${brand}`
     }
-    
+
+    @Post('create/product')
+    @HttpCode(HttpStatus.ACCEPTED)
+    create(@Body() payload: any){
+        if(payload.id === 1) throw Error("Error del id");
+        return {
+            message: 'Crear Producto',
+            payload
+        }
+    }
+
     @Get('products/filter')
      getProductFilter() {
         return ' Yo soy un filter';
